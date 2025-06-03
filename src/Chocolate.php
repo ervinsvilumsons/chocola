@@ -7,29 +7,37 @@ class Chocolate {
     /**
      * Number of square pieces horizontaly.
      */
-    public int $m = 0;
+    private int $m;
 
     /**
      * Number of square pieces verticaly.
      */
-    public int $n = 0;
+    private int $n;
 
     /**
      * Horizontal cut costs.
      */
-    public array $x = [];
+    private array $x;
 
     /**
      * Vertical cut costs.
      */
-    public array $y = [];
+    private array $y;
 
     const MIN_SIZE = 2;  
     const MAX_SIZE = 1000;
     const MIN_COST = 1;
     const MAX_COST = 1000;
 
- 
+
+    public function __construct(int $m, int $n, array $x, array $y)
+    {
+        $this->m = $m;
+        $this->n = $n;
+        $this->x = $x;
+        $this->y = $y;
+    }
+    
     /**
      * Splits chocolate with min cost.
      * 
@@ -37,73 +45,13 @@ class Chocolate {
      */
     public function splitIntoPieces(): void
     {
-        $this->getDimensions();
-        $this->getCutCosts();
-        $minCost = $this->getMinCost();
-
-        info("\nOutput:\n{$minCost}\n\n");
-    }
-
-    /**
-     * @return true
-     */
-    private function getDimensions(): true
-    {
-        $min = self::MIN_SIZE;
-        $max = self::MAX_SIZE;
-        $inputMessage = "Please enter m & n dimensions:\n";
-        $errorMessage = "Error: m and n must be between $min and $max.\n";
-
-        info($inputMessage);
-        while(true) {
-            [$m, $n] = array_pad(explode(' ', trim(fgets(STDIN))), 2, null);
-            $this->m = intval($m);
-            $this->n = intval($n);
-
-            if ($this->m >= $min && $this->m <= $max && $this->n >= $min && $this->n <= $max) {
-                return true;
-            }
-
-            error($errorMessage);
-        }
-    }
-
-    /**
-     * @return void
-     */
-    private function getCutCosts(): void
-    {
-        $min = self::MIN_COST;
-        $max = self::MAX_COST;
-        $dimensions = [
-            'x' => $this->m,
-            'y' => $this->n,
-        ];
-
-        foreach($dimensions as $key => $size) {
-            for($i = 1; $i <= $size - 1; $i++) {
-                while(true) {
-                    $inputMessage = "Please enter {$key}{$i} cost:\n";
-                    $errorMessage = "Error: {$key}{$i} must be between $min and $max.\n";
-
-                    info($inputMessage);
-                    $cost = intval(trim(fgets(STDIN)));
-
-                    if ($cost >= $min && $cost <= $max) {
-                        $this->$key[] = $cost;
-                        break;
-                    }
-
-                    error($errorMessage);
-                }
-            }
-        }
+        info("\nOutput:\n{$this->getMinCost()}\n\n");
     }
 
     /**
      * @return int
      */
-    private function getMinCost(): int
+    public function getMinCost(): int
     {
         $totalCost = $hCuts = $vCuts = 0;
         $hPieces = 1;
