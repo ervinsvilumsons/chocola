@@ -6,3 +6,8 @@ docker compose up --build
 docker exec -it chocola /bin/bash
 php app.php
 ```
+
+## Tests
+```
+vendor/bin/phpunit
+```

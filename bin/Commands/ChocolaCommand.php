@@ -73,11 +73,11 @@ class ChocolaCommand
 
         foreach($dimensions as $key => $size) {
             for($i = 1; $i <= $size - 1; $i++) {
-                while(true) {
-                    $inputMessage = "Please enter {$key}{$i} cost:\n";
-                    $errorMessage = "Error: {$key}{$i} must be between $min and $max.\n";
+                $inputMessage = "Please enter {$key}{$i} cost:\n";
+                $errorMessage = "Error: {$key}{$i} must be between $min and $max.\n";
 
-                    info($inputMessage);
+                info($inputMessage);
+                while(true) {
                     $cost = intval(trim(fgets(STDIN)));
 
                     if ($cost >= $min && $cost <= $max) {
@@ -103,10 +103,8 @@ class ChocolaCommand
 
         for ($i = 1; $i <= $testCases; $i++) {
             info("Test Case {$i}\n\n");
-
             [$m, $n] = $this->readDimensions();
             [$x, $y] = $this->readCutCosts($m, $n);
-
             $chocolate = new Chocolate($m, $n, $x, $y);
             $chocolate->splitIntoPieces();
         }

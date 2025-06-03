@@ -8,24 +8,28 @@ class ChocolateTest extends TestCase
     public function testBasicCase()
     {
         $chocolate = new Chocolate(3, 3, [2, 1], [3, 1]);
+        // 3 + 4 + 2 + 3
         $this->assertEquals(12, $chocolate->getMinCost());
     }
 
     public function testAllEqualCosts()
     {
         $chocolate = new Chocolate(4, 4, [1, 1, 1], [1, 1, 1]);
+        // 1 + 1 + 1 + 4 + 4 + 4
         $this->assertEquals(15, $chocolate->getMinCost());
     }
 
     public function testOnlyHorizontalCheaper()
     {
         $chocolate = new Chocolate(3, 3, [1, 1], [100, 100]);
+        // 100 + 100 + 3 + 3
         $this->assertEquals(206, $chocolate->getMinCost());
     }
 
     public function testOnlyVerticalCheaper()
     {
         $chocolate = new Chocolate(3, 3, [100, 100], [1, 1]);
+        // 100 + 100 + 3 + 3
         $this->assertEquals(206, $chocolate->getMinCost());
     }
 
