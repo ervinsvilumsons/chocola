@@ -1,0 +1,8 @@
+services:
+  app:
+    build:
+      context: .
+    container_name: chocola
+    working_dir: /var/www/html       
+    volumes:
+      - .:/var/www/html
