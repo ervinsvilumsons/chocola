@@ -37,6 +37,45 @@ class Chocolate {
         $this->x = $x;
         $this->y = $y;
     }
+
+    /**
+     * @property int $m
+     * @property int $n
+     * @return bool
+     */
+    public static function validateDimensions(int $m, int $n): bool
+    {
+        $min = self::MIN_SIZE;
+        $max = self::MAX_SIZE;
+        $validated = $m >= $min && $m <= $max && $n >= $min && $n <= $max;
+        $errorMessage = "Error: m and n must be between $min and $max.\n";
+
+        if (!$validated) {
+            error($errorMessage);
+        }
+
+        return $validated;
+    }
+
+    /**
+     * @property int $cost
+     * @property string $dimension
+     * @property int $i
+     * @return bool
+     */
+    public static function validateCutCosts(int $cost, string $dimension = 'x', int $i = 1): bool
+    {
+        $min = self::MIN_COST;
+        $max = self::MAX_COST;
+        $validated = $cost >= $min && $cost <= $max;
+        $errorMessage = "Error: {$dimension}{$i} must be between $min and $max.\n";
+
+        if (!$validated) {
+            error($errorMessage);
+        }
+
+        return $validated;
+    }
     
     /**
      * Splits chocolate with min cost.

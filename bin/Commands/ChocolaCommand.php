@@ -10,24 +10,35 @@ class ChocolaCommand
     const MAX_TEST_CASE = 20;
 
     /**
+     * @property int $number
+     * @return @bool
+     */
+    public static function validateTestCaseNumber(int $number): bool
+    {
+        $min = self::MIN_TEST_CASE;
+        $max = self::MAX_TEST_CASE;
+        $errorMessage = "Error: Number of test cases must be between $min and $max.\n";
+        $validated = $number >= $min && $number <= $max;
+
+        if (!$validated) {
+            error($errorMessage);
+        }
+
+        return $validated;
+    }
+
+    /**
      * @return int
      */
     private function readTestCaseNumber(): int
     {
-        $min = self::MIN_TEST_CASE;
-        $max = self::MAX_TEST_CASE;
-        $inputMessage = "Please enter number of test cases:\n";
-        $errorMessage = "Error: Number of test cases must be between $min and $max.\n";
-
-        info($inputMessage);
+        info("Please enter number of test cases:\n");
         while(true) {
             $testCases = intval(trim(fgets(STDIN)));
 
-            if ($testCases >= $min && $testCases <= $max) {
+            if (self::validateTestCaseNumber($testCases)) {
                 return $testCases;
             }
-
-            error($errorMessage);
         }
     }
 
@@ -36,23 +47,15 @@ class ChocolaCommand
      */
     private function readDimensions(): array
     {
-        $min = Chocolate::MIN_SIZE;
-        $max = Chocolate::MAX_SIZE;
-        $inputMessage = "Please enter m & n dimensions:\n";
-        $errorMessage = "Error: m and n must be between $min and $max.\n";
-
-        info($inputMessage);
+        info("Please enter m & n dimensions:\n");
         while(true) {
             [$m, $n] = array_pad(explode(' ', trim(fgets(STDIN))), 2, null);
             $m = intval($m);
             $n = intval($n);
 
-            if ($m >= $min && $m <= $max && 
-                $n >= $min && $n <= $max) {
+            if (Chocolate::validateDimensions($m, $n)) {
                 return [$m, $n];
             }
-
-            error($errorMessage);
         }
     }
 
@@ -63,8 +66,6 @@ class ChocolaCommand
      */
     private function readCutCosts(int $m, int $n): array
     {
-        $min = Chocolate::MIN_COST;
-        $max = Chocolate::MAX_COST;
         $x = $y = [];
         $dimensions = [
             'x' => $m,
@@ -73,19 +74,14 @@ class ChocolaCommand
 
         foreach($dimensions as $key => $size) {
             for($i = 1; $i <= $size - 1; $i++) {
-                $inputMessage = "Please enter {$key}{$i} cost:\n";
-                $errorMessage = "Error: {$key}{$i} must be between $min and $max.\n";
-
-                info($inputMessage);
+                info("Please enter {$key}{$i} cost:\n");
                 while(true) {
                     $cost = intval(trim(fgets(STDIN)));
 
-                    if ($cost >= $min && $cost <= $max) {
+                    if (Chocolate::validateCutCosts($cost, $key, $i)) {
                         $$key[] = $cost;
                         break;
                     }
-
-                    error($errorMessage);
                 }
             }
         }
