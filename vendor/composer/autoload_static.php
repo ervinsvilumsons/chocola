@@ -25,10 +25,10 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         array (
             'DeepCopy\\' => 9,
         ),
-        'C' => 
+        'A' => 
         array (
-            'Chocola\\Commands\\' => 17,
-            'Chocola\\' => 8,
+            'App\\Commands\\' => 13,
+            'App\\' => 4,
         ),
     );
 
@@ -45,11 +45,11 @@ class ComposerStaticInitd751713988987e9331980363e24189ce
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'Chocola\\Commands\\' => 
+        'App\\Commands\\' => 
         array (
             0 => __DIR__ . '/../..' . '/bin/Commands',
         ),
-        'Chocola\\' => 
+        'App\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

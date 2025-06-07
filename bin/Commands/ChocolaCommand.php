@@ -1,8 +1,8 @@
 <?php
 
-namespace Chocola\Commands;
+namespace App\Commands;
 
-use Chocola\Chocolate;
+use App\Models\Chocolate;
 
 class ChocolaCommand
 {
@@ -28,13 +28,14 @@ class ChocolaCommand
     }
 
     /**
+     * @property STDIN $input
      * @return int
      */
-    private function readTestCaseNumber(): int
+    private function readTestCaseNumber($input = STDIN): int
     {
         info("Please enter number of test cases:\n");
         while(true) {
-            $testCases = intval(trim(fgets(STDIN)));
+            $testCases = intval(trim(fgets($input)));
 
             if (self::validateTestCaseNumber($testCases)) {
                 return $testCases;
@@ -43,13 +44,14 @@ class ChocolaCommand
     }
 
     /**
+     * @property STDIN $input
      * @return array
      */
-    private function readDimensions(): array
+    private function readDimensions($input = STDIN): array
     {
         info("Please enter m & n dimensions:\n");
         while(true) {
-            [$m, $n] = array_pad(explode(' ', trim(fgets(STDIN))), 2, null);
+            [$m, $n] = array_pad(explode(' ', trim(fgets($input))), 2, null);
             $m = intval($m);
             $n = intval($n);
 
@@ -62,9 +64,10 @@ class ChocolaCommand
     /**
      * @property int $m
      * @property int $n
+     * @property STDIN $input
      * @return array
      */
-    private function readCutCosts(int $m, int $n): array
+    private function readCutCosts(int $m, int $n, $input = STDIN): array
     {
         $x = $y = [];
         $dimensions = [
@@ -76,7 +79,7 @@ class ChocolaCommand
             for($i = 1; $i <= $size - 1; $i++) {
                 info("Please enter {$key}{$i} cost:\n");
                 while(true) {
-                    $cost = intval(trim(fgets(STDIN)));
+                    $cost = intval(trim(fgets($input)));
 
                     if (Chocolate::validateCutCosts($cost, $key, $i)) {
                         $$key[] = $cost;
@@ -90,17 +93,18 @@ class ChocolaCommand
     }
 
     /**
+     * @property STDIN $input
      * @return void
      */
-    public function run(): void
+    public function run($input = STDIN): void
     {
-        $testCases = self::readTestCaseNumber();
+        $testCases = self::readTestCaseNumber($input);
         info("\n");
 
         for ($i = 1; $i <= $testCases; $i++) {
             info("Test Case {$i}\n\n");
-            [$m, $n] = $this->readDimensions();
-            [$x, $y] = $this->readCutCosts($m, $n);
+            [$m, $n] = $this->readDimensions($input);
+            [$x, $y] = $this->readCutCosts($m, $n, $input);
             $chocolate = new Chocolate($m, $n, $x, $y);
             $chocolate->splitIntoPieces();
         }

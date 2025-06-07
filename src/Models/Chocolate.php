@@ -1,6 +1,6 @@
 <?php
 
-namespace Chocola;
+namespace App\Models;
 
 class Chocolate {
 

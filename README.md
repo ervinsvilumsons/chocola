@@ -9,5 +9,6 @@ php app.php
 
 ## Tests
 ```
-vendor/bin/phpunit
+docker exec -it chocola /bin/bash
+vendor/bin/phpunit --coverage-html coverage
 ```

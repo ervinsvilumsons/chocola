@@ -1,8 +1,8 @@
 <?php
 
+use App\Models\Chocolate;
+use App\Commands\ChocolaCommand;
 use PHPUnit\Framework\TestCase;
-use Chocola\Chocolate;
-use Chocola\Commands\ChocolaCommand;
 
 class ChocolateTest extends TestCase
 {
@@ -57,6 +57,16 @@ class ChocolateTest extends TestCase
     /**
      * @return void
      */
+    public function testSplit(): void
+    {
+        $chocolate = new Chocolate(4, 2, [2, 5, 3], [2, 1]);
+
+        $this->assertNull($chocolate->splitIntoPieces());
+    }
+
+    /**
+     * @return void
+     */
     public function testBasicCase(): void
     {
         $chocolate = new Chocolate(3, 3, [2, 1], [3, 1]);
@@ -102,6 +112,42 @@ class ChocolateTest extends TestCase
         $x = array_fill(0, 999, 1000);
         $y = array_fill(0, 999, 1000);
         $chocolate = new Chocolate(1000, 1000, $x, $y);
+
         $this->assertIsInt($chocolate->getMinCost());
+    }
+
+    /**
+     * @return void
+     */
+    public function testCommandRun(): void
+    {
+        $inputLines = [];
+
+        $testCases = 1;
+        $inputLines[] = "$testCases\n";
+
+        for ($i = 0; $i < $testCases; $i++) {
+            $m = 2;
+            $n = 2;
+            $inputLines[] = "$m $n\n";
+
+            // Add m-1 x costs
+            for ($j = 1; $j <= $m - 1; $j++) {
+                $inputLines[] = rand(1, 100) . "\n";
+            }
+            // Add n-1 y costs
+            for ($j = 1; $j <= $n - 1; $j++) {
+                $inputLines[] = rand(1, 100) . "\n";
+            }
+        }
+
+        $inputString = implode('', $inputLines);
+
+        $inputStream = fopen('php://memory', 'r+');
+        fwrite($inputStream, $inputString);
+        rewind($inputStream);
+        $command = new ChocolaCommand();
+
+        $this->assertNull($command->run($inputStream));
     }
 }

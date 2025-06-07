@@ -1,8 +1,8 @@
 {
     "autoload": {
         "psr-4": {
-            "Chocola\\": "src/",
-            "Chocola\\Commands\\": "bin/Commands"
+            "App\\": "src/",
+            "App\\Commands\\": "bin/Commands"
         },
         "files": [
             "helpers/helpers.php"
