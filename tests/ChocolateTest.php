@@ -131,11 +131,10 @@ class ChocolateTest extends TestCase
             $n = 2;
             $inputLines[] = "$m $n\n";
 
-            // Add m-1 x costs
             for ($j = 1; $j <= $m - 1; $j++) {
                 $inputLines[] = rand(1, 100) . "\n";
             }
-            // Add n-1 y costs
+
             for ($j = 1; $j <= $n - 1; $j++) {
                 $inputLines[] = rand(1, 100) . "\n";
             }
@@ -148,6 +147,6 @@ class ChocolateTest extends TestCase
         rewind($inputStream);
         $command = new ChocolaCommand();
 
-        $this->assertNull($command->run($inputStream));
+        $this->assertIsBool(true, $command->run($inputStream));
     }
 }

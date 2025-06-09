@@ -2,6 +2,14 @@
 
 namespace App\Models;
 
+/**
+ * Class Chocolate
+ * 
+ * @property int $m
+ * @property int $n
+ * @property array $x
+ * @property array $y
+ */
 class Chocolate {
 
     /**
@@ -29,7 +37,6 @@ class Chocolate {
     const MIN_COST = 1;
     const MAX_COST = 1000;
 
-
     public function __construct(int $m, int $n, array $x, array $y)
     {
         $this->m = $m;
@@ -39,8 +46,8 @@ class Chocolate {
     }
 
     /**
-     * @property int $m
-     * @property int $n
+     * @param int $m
+     * @param int $n
      * @return bool
      */
     public static function validateDimensions(int $m, int $n): bool
@@ -58,9 +65,9 @@ class Chocolate {
     }
 
     /**
-     * @property int $cost
-     * @property string $dimension
-     * @property int $i
+     * @param int $cost
+     * @param string $dimension
+     * @param int $i
      * @return bool
      */
     public static function validateCutCosts(int $cost, string $dimension = 'x', int $i = 1): bool

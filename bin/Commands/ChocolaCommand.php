@@ -10,7 +10,7 @@ class ChocolaCommand
     const MAX_TEST_CASE = 20;
 
     /**
-     * @property int $number
+     * @param int $number
      * @return @bool
      */
     public static function validateTestCaseNumber(int $number): bool
@@ -28,7 +28,7 @@ class ChocolaCommand
     }
 
     /**
-     * @property STDIN $input
+     * @param STDIN $input
      * @return int
      */
     private function readTestCaseNumber($input = STDIN): int
@@ -44,7 +44,7 @@ class ChocolaCommand
     }
 
     /**
-     * @property STDIN $input
+     * @param STDIN $input
      * @return array
      */
     private function readDimensions($input = STDIN): array
@@ -62,9 +62,9 @@ class ChocolaCommand
     }
 
     /**
-     * @property int $m
-     * @property int $n
-     * @property STDIN $input
+     * @param int $m
+     * @param int $n
+     * @param STDIN $input
      * @return array
      */
     private function readCutCosts(int $m, int $n, $input = STDIN): array
@@ -93,10 +93,10 @@ class ChocolaCommand
     }
 
     /**
-     * @property STDIN $input
-     * @return void
+     * @param STDIN $input
+     * @return bool
      */
-    public function run($input = STDIN): void
+    public function run($input = STDIN): bool
     {
         $testCases = self::readTestCaseNumber($input);
         info("\n");
@@ -108,5 +108,7 @@ class ChocolaCommand
             $chocolate = new Chocolate($m, $n, $x, $y);
             $chocolate->splitIntoPieces();
         }
+
+        return true;
     }
 }

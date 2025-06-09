@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @property string $errorMessage
+ * @param string $errorMessage
  * @return void
  */
 function error(string $errorMessage): void
@@ -10,7 +10,7 @@ function error(string $errorMessage): void
 }
 
 /**
- * @property string $infoMessage
+ * @param string $infoMessage
  * @return void
  */
 function info(string $infoMessage): void
